@@ -1,7 +1,16 @@
 import 'package:get/get.dart';
 
 class OnboardingController extends GetxController {
-  //TODO: Implement OnboardingController
+  var currentPage = 0.obs;
+
+  void nextPage() {
+    currentPage++;
+  }
+
+  void goToHome() {
+    // Можно добавить дополнительную логику перед переходом, если необходимо
+    Get.offAllNamed('/home');
+  }
 
   final count = 0.obs;
   @override

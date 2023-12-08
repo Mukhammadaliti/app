@@ -1,130 +1,69 @@
+import 'package:app/app/modules/onboarding/controllers/onboarding_controller.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 
 class OnboardingView extends StatelessWidget {
-  final List<Map<String, String>> _onboardingData = [
-    {
-      'title': 'All your favorites',
-      'description':
-          'Get all your loved foods in one once place, you just place the orer we do the rest',
-      'imageUrl': 'assets/images/onboarding/1.png',
-    },
-    {
-      'title': 'Order from choosen chef',
-      'description':
-          'Get all your loved foods in one once place, you just place the orer we do the rest',
-      'imageUrl': 'assets/images/onboarding/2.png',
-    },
-    {
-      'title': 'Free delivery offers',
-      'description':
-          'Get all your loved foods in one once place, you just place the orer we do the rest',
-      'imageUrl': 'assets/images/onboarding/3.png',
-    },
-  ];
-
+  final OnboardingController controller = Get.put(OnboardingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => OnboardingBloc(),
-          child: BlocConsumer<OnboardingBloc, int>(
-            listener: (context, currentPage) {
-              if (currentPage == -1) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
-                  ),
-                );
-              }
-            },
-            builder: (context, currentPage) {
-              if (currentPage < 0 || currentPage >= _onboardingData.length) {
-                return Container();
-              }
-
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    _onboardingData[currentPage]['imageUrl']!,
-                    height: 400,
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    _onboardingData[currentPage]['title']!,
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontFamily: 'SenExtraBold',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    _onboardingData[currentPage]['description']!,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontFamily: 'SenRegular'),
-                  ),
-                  SizedBox(height: 70),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFF7622),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          minimumSize:
-                              Size(MediaQuery.of(context).size.width / 1.2, 55),
-                        ),
-                        onPressed: () {
-                          final bloc = BlocProvider.of<OnboardingBloc>(context);
-                          if (currentPage == _onboardingData.length - 1) {
-                            bloc.add(OnboardingEvent.lastPage);
-                          } else {
-                            bloc.add(OnboardingEvent.nextPage);
-                          }
-                        },
-                        child: Text(
-                          currentPage == _onboardingData.length - 1
-                              ? 'Get Started'
-                              : 'Next',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'SenExtraBold',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  currentPage == _onboardingData.length - 1
-                      ? SizedBox()
-                      : TextButton(
-                          onPressed: () {
-                            final bloc =
-                                BlocProvider.of<OnboardingBloc>(context);
-                            bloc.add(OnboardingEvent.lastPage);
-                          },
-                          child: const Text(
-                            'Skip',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                              fontFamily: 'SenRegular',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                ],
-              );
-            },
-          ),
+      appBar: AppBar(
+        title: Text('Onboarding'),
+      ),
+      body: PageView(
+        controller: PageController(),
+        onPageChanged: (index) {
+          controller.currentPage.value = index;
+        },
+        children: [
+          OnboardingPage('Page 1'),
+          OnboardingPage('Page 2'),
+          OnboardingPage('Page 3'),
+        ],
+      ),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: controller.currentPage.value,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.circle),
+              label: '1',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.circle),
+              label: '2',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.circle),
+              label: '3',
+            ),
+          ],
+          onTap: (index) {
+            controller.currentPage.value = index;
+          },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: controller.currentPage.value < 2
+            ? () => controller.nextPage()
+            : () => controller.goToHome(),
+        child: Icon(Icons.arrow_forward),
+      ),
+    );
+  }
+}
+
+class OnboardingPage extends StatelessWidget {
+  final String title;
+
+  OnboardingPage(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 24),
       ),
     );
   }
