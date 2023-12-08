@@ -5,16 +5,14 @@ abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
   static const WELCOM = _Paths.WELCOM;
-  static const SIGN_IN = _Paths.SIGN_IN;
-  static const SIGN_UP = _Paths.SIGN_UP;
-  static const ONBOARDING = _Paths.ONBOARDING;
+
+  static const AUTH = _Paths.AUTH;
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
   static const WELCOM = '/welcom';
-  static const SIGN_IN = '/sign-in';
-  static const SIGN_UP = '/sign-up';
-  static const ONBOARDING = '/onboarding';
+
+  static const AUTH = '/auth';
 }

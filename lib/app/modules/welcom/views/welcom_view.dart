@@ -1,3 +1,4 @@
+import 'package:app/app/constants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,14 +10,11 @@ class WelcomView extends GetView<WelcomController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('WelcomView'),
-        centerTitle: true,
-      ),
+      backgroundColor: AppColors.blueC,
       body: const Center(
         child: Text(
-          'WelcomView is working',
-          style: TextStyle(fontSize: 20),
+          'Dомашний',
+          style: TextStyle(fontSize: 40, fontFamily: "Disket"),
         ),
       ),
     );
