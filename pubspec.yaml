@@ -19,7 +19,7 @@ dev_dependencies:
 flutter: 
   uses-material-design: true
   
-fonts:
+  fonts:
     - family: Disket
       fonts:
-        - asset: asset/fonts/Disket.ttf
+        - asset: assets/fonts/Disket.ttf

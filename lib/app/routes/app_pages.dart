@@ -1,3 +1,4 @@
+import 'package:app/app/modules/welcom/controllers/welcom_controller.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
@@ -24,7 +25,9 @@ class AppPages {
     GetPage(
       name: _Paths.WELCOM,
       page: () => const WelcomView(),
-      binding: WelcomBinding(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => WelcomController());
+      }),
     ),
     GetPage(
       name: _Paths.AUTH,

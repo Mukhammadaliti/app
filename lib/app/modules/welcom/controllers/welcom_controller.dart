@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 
 class WelcomController extends GetxController {
@@ -7,6 +9,9 @@ class WelcomController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+     Timer(Duration(seconds: 3), () {
+      Get.toNamed('/home'); // Переход к следующему экрану после паузы
+    });
   }
 
   @override
