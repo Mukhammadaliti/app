@@ -1,11 +1,10 @@
 import 'package:app/app/constants/colors/app_colors.dart';
+import 'package:app/app/modules/auth/views/auth_view.dart';
 import 'package:app/app/modules/home/views/home_view.dart';
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
-import '../controllers/welcom_controller.dart';
 
 // class WelcomView extends GetView<WelcomController> {
 //   const WelcomView({Key? key}) : super(key: key);
@@ -39,7 +38,7 @@ class _WelcomViewState extends State<WelcomView> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => HomeView()),
+        MaterialPageRoute(builder: (_) => AuthView()),
       );
     });
   }
