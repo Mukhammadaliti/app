@@ -38,7 +38,7 @@ class _WelcomViewState extends State<WelcomView> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => AuthView()),
+        MaterialPageRoute(builder: (_) => HomeView()),
       );
     });
   }
